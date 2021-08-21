@@ -1,0 +1,411 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio Compasso",
+        "description": "Documentação da aplicação produzida para o desafio proposto pela Compasso UOL. Consiste em APIs para cadastro e busca de cidades e clientes.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "ariannemacena@gmail.com"
+        }
+    },
+    "paths": {
+        "/cidades": {
+            "post": {
+                "tags": ["Cidade"],
+                "summary": "Cadastra uma cidade",
+                "description": "Cadastra uma cidade dado nome e estado.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "estado": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "nome": "Aracaju",
+                                    "estado": "Sergipe"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cidade criada."
+                    },
+                    "404": {
+                        "description": "Cidade/Estado já existe."
+                    }
+                }
+            }
+        },
+        "/cidades/estado/{estado}": {
+            "get": {
+                "tags": ["Cidade"],
+                "summary": "Busca cidades",
+                "description": "Busca cidades cadastradas dado o nome do estado.",
+                "parameters": [
+                    {
+                        "name": "estado",
+                        "in": "path",
+                        "description": "Nome de um estado já cadastrado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "number"
+                                            },
+                                            "nome": {
+                                                "type": "string"
+                                            },
+                                            "estado": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "example": {
+                                            "id": 1,
+                                            "nome": "Xapuri",
+                                            "estado": "Acre"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cidades/nome/{nome}": {
+            "get": {
+                "tags": ["Cidade"],
+                "summary": "Busca uma cidade",
+                "description": "Busca uma cidade cadastrada dado o seu nome.",
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "path",
+                        "description": "Nome de uma cidade já cadastrada",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "estado": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": 1,
+                                        "nome": "Xapuri",
+                                        "estado": "Acre"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cidade não encontrada."
+                    }
+                }
+            }
+        },
+        "/clientes": {
+            "post": {
+                "tags": ["Cliente"],
+                "summary": "Cadastra um cliente",
+                "description": "Cadastra um cliente dado um conjunto de dados e uma cidade válida.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome_completo": {
+                                        "type": "string"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    },
+                                    "data_nascimento": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "idade": {
+                                        "type": "number"
+                                    },
+                                    "cidade_id": {
+                                        "type": "number"
+                                    }
+                                },
+                                "example": {
+                                    "nome_completo": "Anthony Guilherme Aragão",
+                                    "sexo": "Masculino",
+                                    "data_nascimento": "1995-08-09",
+                                    "idade": "26",
+                                    "cidade_id": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente criado."
+                    },
+                    "404": {
+                        "description": "Cidade/Estado não existe."
+                    }
+                }
+            }
+        },
+        "/clientes/nome_completo/{nome_completo}": {
+            "get": {
+                "tags": ["Cliente"],
+                "summary": "Busca um cliente",
+                "description": "Busca um cliente cadastrado dado seu nome completo.",
+                "parameters": [
+                    {
+                        "name": "nome_completo",
+                        "in": "path",
+                        "description": "Nome completo de um cliente já cadastrado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nome_completo": {
+                                            "type": "string"
+                                        },
+                                        "sexo": {
+                                            "type": "string"
+                                        },
+                                        "data_nascimento": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "idade": {
+                                            "type": "number"
+                                        },
+                                        "cidade_id": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "example": {
+                                        "nome_completo": "Anthony Guilherme Aragão",
+                                        "sexo": "Masculino",
+                                        "data_nascimento": "1995-08-09",
+                                        "idade": "26",
+                                        "cidade_id": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não existe."
+                    }
+                }
+            }
+        },
+        "/clientes/id/{id}": {
+            "get": {
+                "tags": ["Cliente"],
+                "summary": "Busca um cliente",
+                "description": "Busca um cliente cadastrado dado seu ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de um cliente já cadastrado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nome_completo": {
+                                            "type": "string"
+                                        },
+                                        "sexo": {
+                                            "type": "string"
+                                        },
+                                        "data_nascimento": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "idade": {
+                                            "type": "number"
+                                        },
+                                        "cidade_id": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "example": {
+                                        "nome_completo": "Anthony Guilherme Aragão",
+                                        "sexo": "Masculino",
+                                        "data_nascimento": "1995-08-09",
+                                        "idade": "26",
+                                        "cidade_id": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não existe."
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Cliente"],
+                "summary": "Altera o nome do cliente",
+                "description": "Altera o nome do cliente dado seu ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de um cliente já cadastrado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome_completo": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "nome_completo": "Anthony Guilherme Aragão Junior"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nome_completo": {
+                                            "type": "string"
+                                        },
+                                        "sexo": {
+                                            "type": "string"
+                                        },
+                                        "data_nascimento": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "idade": {
+                                            "type": "number"
+                                        },
+                                        "cidade_id": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "example": {
+                                        "nome_completo": "Anthony Guilherme Aragão Junior",
+                                        "sexo": "Masculino",
+                                        "data_nascimento": "1995-08-09",
+                                        "idade": "26",
+                                        "cidade_id": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não existe."
+                    }
+                }
+            }
+        },
+        "/clientes/{id}": {
+            "delete": {
+                "tags": ["Cliente"],
+                "summary": "Remove um cliente",
+                "description": "Remove um cliente dado seu ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de um cliente já cadastrado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente removido."
+                    },
+                    "404": {
+                        "description": "Cliente não existe."
+                    }
+                }
+            }
+        }
+    }
+}

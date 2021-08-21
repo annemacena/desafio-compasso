@@ -1,0 +1,20 @@
+
+Cidade
+    - nome
+    - estado
+    # cadastrar
+    # consultar por nome
+    # consultar por estado
+
+Cliente
+    - id
+    - nome completo
+    - sexo
+    - data de nascimento
+    - idade
+    - Cidade
+    # cadastrar
+    # consultar por nome
+    # consultar por id
+    # remover cliente
+    # alterar nome
