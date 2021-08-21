@@ -23,3 +23,5 @@ yarn typeorm migration:run
 
 # Após esse processo, é possível acessar a documentação da API com os endpoints disponíveis em: http://localhost:3333/documentacao
 ```
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Desafio%20Compasso%20UOL&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fannemacena%2Fdesafio-compasso%2Fmain%2FInsomnia_2021-08-21.json)
